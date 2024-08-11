@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import "../Merging.css"; // Assuming you have a CSS file for styling
 
 export default function Merging({ boxes, setBoxes }) {
@@ -38,6 +37,26 @@ export default function Merging({ boxes, setBoxes }) {
     e.preventDefault(); // Allow the drop event
   };
 
+  const handleTouchStart = (index) => {
+    setDraggedBox(index);
+  };
+
+  const handleTouchMove = (e) => {
+    e.preventDefault(); // Prevent default scrolling
+    const touch = e.touches[0];
+    const element = document.elementFromPoint(touch.clientX, touch.clientY);
+    const dropIndex = parseInt(element?.dataset.index);
+
+    if (dropIndex || dropIndex === 0) {
+      // Ensure the dropIndex is a valid index
+      handleDrop(dropIndex);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setDraggedBox(null); // Reset dragged box on touch end
+  };
+
   const renderSquare = (index) => {
     const box = boxes.find((box) => box.index === index);
 
@@ -45,8 +64,12 @@ export default function Merging({ boxes, setBoxes }) {
       <div
         key={index}
         className="square"
+        data-index={index}
         onDragOver={handleDragOver}
         onDrop={() => handleDrop(index)}
+        onTouchStart={() => handleTouchStart(index)}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd} // Reset dragged box on touch end
       >
         {box && (
           <div
@@ -62,8 +85,10 @@ export default function Merging({ boxes, setBoxes }) {
   };
 
   return (
-    <div className="grid">
-      {Array.from({ length: 12 }).map((_, index) => renderSquare(index))}
+    <div className="overflow-hidden mt-12">
+      <div className="grid">
+        {Array.from({ length: 12 }).map((_, index) => renderSquare(index))}
+      </div>
     </div>
   );
 }
