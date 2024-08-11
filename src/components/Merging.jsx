@@ -1,33 +1,69 @@
-import Draggable from "react-draggable";
-export default function Merging({ boxIndices }) {
-  function handleDrag(e, data) {
-    console.log(data);
-  }
+import React from "react";
+import { useState } from "react";
+import "../Merging.css"; // Assuming you have a CSS file for styling
+
+export default function Merging({ boxes, setBoxes }) {
+  const [draggedBox, setDraggedBox] = useState(null);
+
+  const handleDragStart = (index) => {
+    setDraggedBox(index);
+  };
+
+  const handleDrop = (index) => {
+    if (draggedBox !== null) {
+      const draggedBoxData = boxes.find((box) => box.index === draggedBox);
+      const targetBoxData = boxes.find((box) => box.index === index);
+
+      if (targetBoxData && targetBoxData.level === draggedBoxData.level) {
+        // Merge the boxes
+        const newBoxes = boxes
+          .filter((box) => box.index !== draggedBox) // Remove dragged box
+          .map((box) =>
+            box.index === index ? { ...box, level: box.level + 1 } : box
+          );
+        setBoxes(newBoxes);
+      } else if (!targetBoxData) {
+        // Move the box to an empty square
+        const newBoxes = boxes.map((box) =>
+          box.index === draggedBox ? { ...box, index } : box
+        );
+        setBoxes(newBoxes);
+      }
+    }
+
+    setDraggedBox(null); // Reset the dragged box
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault(); // Allow the drop event
+  };
+
+  const renderSquare = (index) => {
+    const box = boxes.find((box) => box.index === index);
+
+    return (
+      <div
+        key={index}
+        className="square"
+        onDragOver={handleDragOver}
+        onDrop={() => handleDrop(index)}
+      >
+        {box && (
+          <div
+            className={`box level-${box.level}`}
+            draggable
+            onDragStart={() => handleDragStart(index)}
+          >
+            {box.level}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
-    <div className="grid grid-cols-4 gap-4 p-4 mt-6">
-      {Array.from({ length: 12 }).map((_, index) => (
-        <div
-          key={index}
-          className="border-8 border-blue-300 border-solid h-20 rounded-3xl relative"
-        >
-          {boxIndices.includes(index) && (
-            <Draggable position={{ x: -30, y: -30, z: 0 }} onDrag={handleDrag}>
-              <div
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: "60px",
-                  height: "60px",
-                  backgroundColor: "red",
-                  borderRadius: "50%",
-                }}
-              ></div>
-            </Draggable>
-          )}
-        </div>
-      ))}
+    <div className="grid">
+      {Array.from({ length: 12 }).map((_, index) => renderSquare(index))}
     </div>
   );
 }
