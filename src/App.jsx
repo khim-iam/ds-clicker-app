@@ -10,12 +10,12 @@ import "./App.css";
 import Clicker from "./components/Clicker";
 import Heading from "./components/Heading";
 import Merging from "./components/Merging";
-import Task from "./components/Task"; // Import the Task component
-import Connect from "./components/ImageLabeler"; // Import the Connect component
+import Task from "./components/Task";
+import Connect from "./components/ImageLabeler";
 
 export default function App() {
   const [clickCount, setClickCount] = useState(24);
-  const [boxes, setBoxes] = useState([]); // Initialize boxes as an empty array
+  const [boxes, setBoxes] = useState([]);
   const [value, setValue] = useState(0);
 
   const handleClick = () => {
@@ -25,7 +25,7 @@ export default function App() {
           const nextIndex = prevBoxes.length % 12;
           return [...prevBoxes, { level: 1, index: nextIndex }];
         });
-        return 24; // Reset the clickCount after spawning one box
+        return 24;
       } else {
         return value + 1;
       }
@@ -34,63 +34,56 @@ export default function App() {
 
   return (
     <Router>
-      <div
-        className="flex flex-col h-screen overflow-hidden"
-        style={{ paddingBottom: "60px" }}
-      >
+      <div className="container">
         <Routes>
           <Route
             path="/"
             element={
               <>
-                <div className="flex-none">
-                  <Heading />
-                </div>
-                <div className="flex-grow flex flex-col">
+                <Heading />
+                <div className="content">
                   <Clicker clickCount={clickCount} handleClick={handleClick} />
                   <Merging boxes={boxes} setBoxes={setBoxes} />
                 </div>
               </>
             }
           />
-          <Route path="/task" element={<Task />} />{" "}
-          {/* Use the Task component */}
-          <Route path="/connect" element={<Connect />} />{" "}
-          {/* Use the Connect component */}
+          <Route path="/task" element={<Task />} />
+          <Route path="/connect" element={<Connect />} />
         </Routes>
+        <BottomNavigation
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+          showLabels
+          style={{
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            right: 0,
+          }}
+        >
+          <BottomNavigationAction
+            label="Home"
+            icon={<HomeIcon />}
+            component={Link}
+            to="/"
+          />
+          <BottomNavigationAction
+            label="Task"
+            icon={<AssignmentIcon />}
+            component={Link}
+            to="/task"
+          />
+          <BottomNavigationAction
+            label="Connect"
+            icon={<ConnectWithoutContactIcon />}
+            component={Link}
+            to="/connect"
+          />
+        </BottomNavigation>
       </div>
-      <BottomNavigation
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-        showLabels
-        style={{
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          right: 0,
-        }}
-      >
-        <BottomNavigationAction
-          label="Home"
-          icon={<HomeIcon />}
-          component={Link}
-          to="/"
-        />
-        <BottomNavigationAction
-          label="Task"
-          icon={<AssignmentIcon />}
-          component={Link}
-          to="/task"
-        />
-        <BottomNavigationAction
-          label="Connect"
-          icon={<ConnectWithoutContactIcon />}
-          component={Link}
-          to="/connect"
-        />
-      </BottomNavigation>
     </Router>
   );
 }
