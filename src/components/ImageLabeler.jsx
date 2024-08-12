@@ -25,7 +25,7 @@ export default function ImageLabeler() {
   );
   const [isDrawing, setIsDrawing] = useState(false);
   const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
-  const [currentRect, setCurrentRect] = useState(null);
+  const [rectangles, setRectangles] = useState([]);
 
   const canvasRef = useRef(null);
   const imgRef = useRef(null);
@@ -58,18 +58,13 @@ export default function ImageLabeler() {
     // Clear canvas before drawing
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // If there's a current rectangle, draw it
-    if (currentRect) {
+    // Draw all rectangles
+    rectangles.forEach((rect) => {
       ctx.strokeStyle = "red";
       ctx.lineWidth = 2;
-      ctx.strokeRect(
-        currentRect.x,
-        currentRect.y,
-        currentRect.width,
-        currentRect.height
-      );
-    }
-  }, [currentRect]);
+      ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
+    });
+  }, [rectangles]);
 
   const handleMouseDown = (e) => {
     const canvas = canvasRef.current;
@@ -89,12 +84,17 @@ export default function ImageLabeler() {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    setCurrentRect({
+    const newRectangle = {
       x: startPoint.x,
       y: startPoint.y,
       width: x - startPoint.x,
       height: y - startPoint.y,
-    });
+    };
+
+    // Update the last rectangle being drawn
+    const updatedRectangles = [...rectangles];
+    updatedRectangles[updatedRectangles.length - 1] = newRectangle;
+    setRectangles(updatedRectangles);
   };
 
   const handleMouseUp = () => {
@@ -104,7 +104,12 @@ export default function ImageLabeler() {
   const handleNextImage = () => {
     setCurrentImage(images[Math.floor(Math.random() * images.length)]);
     setCurrentPrompt(prompts[Math.floor(Math.random() * prompts.length)]);
-    setCurrentRect(null); // Clear the drawn rectangle
+    setRectangles([]); // Clear all rectangles when switching images
+  };
+
+  const handleCanvasClick = () => {
+    // When the canvas is clicked, add a new rectangle
+    setRectangles([...rectangles, { x: 0, y: 0, width: 0, height: 0 }]);
   };
 
   return (
@@ -126,6 +131,7 @@ export default function ImageLabeler() {
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
+          onClick={handleCanvasClick}
         />
       </div>
       <button className="next-button" onClick={handleNextImage}>
