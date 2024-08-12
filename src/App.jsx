@@ -14,7 +14,7 @@ import Task from "./components/Task";
 import Connect from "./components/ImageLabeler";
 
 export default function App() {
-  const [clickCount, setClickCount] = useState(24);
+  const [clickCount, setClickCount] = useState(0);
   const [boxes, setBoxes] = useState([]);
   const [value, setValue] = useState(0);
 

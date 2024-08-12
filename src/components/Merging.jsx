@@ -45,7 +45,7 @@ export default function Merging({ boxes, setBoxes }) {
       className="grid"
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
+        gridTemplateColumns: "repeat(4, 1fr)",
         gap: "10px",
         padding: "10px",
         justifyContent: "center",

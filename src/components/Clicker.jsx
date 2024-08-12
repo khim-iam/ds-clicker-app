@@ -28,14 +28,17 @@ export default function Clicker({ clickCount, handleClick }) {
         className="incubator-fill"
         style={{
           position: "absolute",
-          bottom: 0,
-          left: 0,
-          width: "100%",
-          height: `${(clickCount / 29) * 100}%`,
+          bottom: 77,
+          borderTopLeftRadius: "10px",
+          borderTopRightRadius: "10px",
+          left: 66,
+          width: "70%",
+          height: `${(clickCount / 29) * 70}%`,
           backgroundColor: "rgba(0, 255, 0, 0.5)", // Adjust color and opacity
           transition: "height 0.3s ease",
           zIndex: 1, // Ensure the fill is on top of the background image
-          borderRadius: "10px", // Adjust to match the container shape if needed
+          borderBottomLeftRadius: "30px", // Adjust to match the container shape if needed
+          borderBottomRightRadius: "30px", // Adjust to match the container shape if needed
         }}
       />
     </div>
