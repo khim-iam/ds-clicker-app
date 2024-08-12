@@ -44,10 +44,10 @@ export default function App() {
           <Route path="/person" element={<Person />} />
         </Routes>
         <div className="bottom-navigation flex flex-row justify-between items-center w-80 px-4 py-2 fixed bottom-0 ">
-          <Link to="/">
+          <Link to="/imagelabeler">
             <img src={sawGif} alt="Home" className="h-12" />
           </Link>
-          <Link to="/imagelabeler">
+          <Link to="/">
             <img src={playgroundGif} alt="Task" className="h-20" />
           </Link>
           <Link to="/person">
