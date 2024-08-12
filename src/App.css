@@ -13,7 +13,6 @@ html {
   align-items: center;
   overflow: hidden;
 }
-
 .container {
   display: flex;
   flex-direction: column;

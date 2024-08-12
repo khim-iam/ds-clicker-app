@@ -1,22 +1,17 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
-import BottomNavigation from "@mui/material/BottomNavigation";
-import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import HomeIcon from "@mui/icons-material/Home";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact";
-
 import "./App.css";
 import Clicker from "./components/Clicker";
-import Heading from "./components/Heading";
 import Merging from "./components/Merging";
-import Task from "./components/Task";
-import Connect from "./components/ImageLabeler";
+import ImageLabeler from "./components/ImageLabeler";
+import Person from "./components/Task";
 
+import sawGif from "./images/saw.gif";
+import playgroundGif from "./images/Playground.gif";
+import personGif from "./images/Person.gif";
 export default function App() {
   const [clickCount, setClickCount] = useState(24);
   const [boxes, setBoxes] = useState([]);
-  const [value, setValue] = useState(0);
 
   const handleClick = () => {
     setClickCount((value) => {
@@ -33,9 +28,33 @@ export default function App() {
   };
 
   return (
-    <div className="content">
-      <Clicker clickCount={clickCount} handleClick={handleClick} />
-      <Merging boxes={boxes} setBoxes={setBoxes} />
-    </div>
+    <Router>
+      <div className="content">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Clicker clickCount={clickCount} handleClick={handleClick} />
+                <Merging boxes={boxes} setBoxes={setBoxes} />
+              </>
+            }
+          />
+          <Route path="/imagelabeler" element={<ImageLabeler />} />
+          <Route path="/person" element={<Person />} />
+        </Routes>
+        <div className="bottom-navigation flex flex-row justify-between items-center w-80 px-4 py-2 fixed bottom-0 ">
+          <Link to="/">
+            <img src={sawGif} alt="Home" className="h-12" />
+          </Link>
+          <Link to="/imagelabeler">
+            <img src={playgroundGif} alt="Task" className="h-20" />
+          </Link>
+          <Link to="/person">
+            <img src={personGif} alt="Connect" className="h-12" />
+          </Link>
+        </div>
+      </div>
+    </Router>
   );
 }

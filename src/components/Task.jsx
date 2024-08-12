@@ -1,3 +1,3 @@
-export default function Task() {
+export default function Person() {
   return <>Tasks</>;
 }
