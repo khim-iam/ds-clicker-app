@@ -31,6 +31,27 @@ export default function ImageLabeler() {
   const imgRef = useRef(null);
 
   useEffect(() => {
+    const img = imgRef.current;
+    const canvas = canvasRef.current;
+
+    // Adjust canvas size to match the image size when the image loads
+    const handleImageLoad = () => {
+      if (img && canvas) {
+        canvas.width = img.width;
+        canvas.height = img.height;
+      }
+    };
+
+    // Attach the load event listener
+    img.addEventListener("load", handleImageLoad);
+
+    // Remove the event listener when the component is unmounted
+    return () => {
+      img.removeEventListener("load", handleImageLoad);
+    };
+  }, [currentImage]);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
 
@@ -49,17 +70,6 @@ export default function ImageLabeler() {
       );
     }
   }, [currentRect]);
-
-  useEffect(() => {
-    const img = imgRef.current;
-    const canvas = canvasRef.current;
-
-    // Adjust canvas size to match the image size
-    if (img && canvas) {
-      canvas.width = img.clientWidth;
-      canvas.height = img.clientHeight;
-    }
-  }, [currentImage]);
 
   const handleMouseDown = (e) => {
     const canvas = canvasRef.current;
@@ -103,7 +113,13 @@ export default function ImageLabeler() {
         <h3>{currentPrompt}</h3>
       </div>
       <div className="image-container">
-        <img ref={imgRef} src={currentImage} alt="Labeling" className="image" />
+        <img
+          ref={imgRef}
+          src={currentImage}
+          alt="Labeling"
+          className="image"
+          style={{ display: "block", maxWidth: "100%", height: "auto" }}
+        />
         <canvas
           ref={canvasRef}
           className="canvas"
