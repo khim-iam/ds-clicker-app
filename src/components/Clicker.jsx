@@ -20,7 +20,7 @@ export default function Clicker({ clickCount, handleClick }) {
         style={{
           width: "80%", // Adjust size as needed
           maxWidth: "400px",
-          height: "auto",
+          height: "420px",
           objectFit: "contain",
         }}
       />
@@ -28,12 +28,12 @@ export default function Clicker({ clickCount, handleClick }) {
         className="incubator-fill"
         style={{
           position: "absolute",
-          bottom: 77,
+          bottom: 50,
           borderTopLeftRadius: "10px",
           borderTopRightRadius: "10px",
-          left: 66,
-          width: "70%",
-          height: `${(clickCount / 29) * 70}%`,
+          left: 150,
+          width: "43%",
+          height: `${(clickCount / 29) * 73}%`,
           backgroundColor: "rgba(0, 255, 0, 0.5)", // Adjust color and opacity
           transition: "height 0.3s ease",
           zIndex: 1, // Ensure the fill is on top of the background image

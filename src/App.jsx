@@ -14,7 +14,7 @@ import Task from "./components/Task";
 import Connect from "./components/ImageLabeler";
 
 export default function App() {
-  const [clickCount, setClickCount] = useState(0);
+  const [clickCount, setClickCount] = useState(24);
   const [boxes, setBoxes] = useState([]);
   const [value, setValue] = useState(0);
 
@@ -33,57 +33,9 @@ export default function App() {
   };
 
   return (
-    <Router>
-      <div className="container">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Heading />
-                <div className="content">
-                  <Clicker clickCount={clickCount} handleClick={handleClick} />
-                  <Merging boxes={boxes} setBoxes={setBoxes} />
-                </div>
-              </>
-            }
-          />
-          <Route path="/task" element={<Task />} />
-          <Route path="/connect" element={<Connect />} />
-        </Routes>
-        <BottomNavigation
-          value={value}
-          onChange={(event, newValue) => {
-            setValue(newValue);
-          }}
-          showLabels
-          style={{
-            position: "fixed",
-            bottom: 0,
-            left: 0,
-            right: 0,
-          }}
-        >
-          <BottomNavigationAction
-            label="Home"
-            icon={<HomeIcon />}
-            component={Link}
-            to="/"
-          />
-          <BottomNavigationAction
-            label="Task"
-            icon={<AssignmentIcon />}
-            component={Link}
-            to="/task"
-          />
-          <BottomNavigationAction
-            label="Connect"
-            icon={<ConnectWithoutContactIcon />}
-            component={Link}
-            to="/connect"
-          />
-        </BottomNavigation>
-      </div>
-    </Router>
+    <div className="content">
+      <Clicker clickCount={clickCount} handleClick={handleClick} />
+      <Merging boxes={boxes} setBoxes={setBoxes} />
+    </div>
   );
 }
