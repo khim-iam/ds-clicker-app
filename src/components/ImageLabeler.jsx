@@ -135,7 +135,7 @@ export default function ImageLabeler() {
         />
       </div>
       <button className="next-button" onClick={handleNextImage}>
-        Next Image
+        Submit
       </button>
     </div>
   );
