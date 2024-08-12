@@ -1,6 +1,6 @@
 export default function Clicker({ clickCount, handleClick }) {
   return (
-    <div className="h-2/4 justify-center items-center flex">
+    <div className="h-1/2 flex justify-center items-center mt-8">
       <div
         className="border-8 border-red-300 border-solid px-36 py-52 rounded-3xl relative overflow-hidden"
         onClick={handleClick}
