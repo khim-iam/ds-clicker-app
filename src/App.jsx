@@ -11,7 +11,7 @@ import Clicker from "./components/Clicker";
 import Heading from "./components/Heading";
 import Merging from "./components/Merging";
 import Task from "./components/Task"; // Import the Task component
-import Connect from "./components/Connect"; // Import the Connect component
+import Connect from "./components/ImageLabeler"; // Import the Connect component
 
 export default function App() {
   const [clickCount, setClickCount] = useState(24);
