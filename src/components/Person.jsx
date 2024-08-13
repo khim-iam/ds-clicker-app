@@ -1,4 +1,5 @@
 import React from "react";
+import "../Person.css";
 
 export default function Person() {
   console.log("first");
