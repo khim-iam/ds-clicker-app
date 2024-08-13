@@ -15,7 +15,7 @@ export default function Clicker({ clickCount, handleClick }) {
       }}
     >
       <img
-        src="src/images/reactor.png" // Correct path to your incubator image
+        src="/reactor.png" // Correct path to your incubator image
         alt="Incubator"
         style={{
           width: "80%", // Adjust size as needed

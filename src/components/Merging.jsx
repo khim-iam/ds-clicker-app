@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 const alienImages = [
-  "src/images/aliens/alien-1.png",
-  "src/images/aliens/alien-2.png",
-  "src/images/aliens/alien-3.png",
-  "src/images/aliens/alien-4.png",
+  "/alien-1.png",
+  "/alien-2.png",
+  "/alien-3.png",
+  "/alien-4.png",
   // Add more paths as necessary
 ];
 
@@ -102,7 +102,7 @@ export default function Merging({ boxes, setBoxes }) {
             onTouchEnd={() => setDraggingBox(null)}
           >
             <img
-              src="src/images/container.png"
+              src="/container.png"
               alt="Container"
               style={{
                 width: "100%",

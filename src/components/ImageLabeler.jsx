@@ -3,9 +3,9 @@ import "../ImageLabeler.css";
 
 // Hardcoded images array (URLs or paths to the images)
 const images = [
-  "src/images/image1.png",
-  "src/images/image2.png",
-  "src/images/image3.png",
+  "/image1.png",
+  "/image2.png",
+  "/image3.png",
   // Add more images as needed
 ];
 
