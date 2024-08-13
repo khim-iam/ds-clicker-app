@@ -9,8 +9,9 @@ import Person from "./components/Person";
 import sawGif from "./images/saw.gif";
 import playgroundGif from "./images/Playground.gif";
 import personGif from "./images/Person.gif";
+import ImageLabeler from "./components/ImageLabeler";
 export default function App() {
-  const [clickCount, setClickCount] = useState(24);
+  const [clickCount, setClickCount] = useState(0);
   const [boxes, setBoxes] = useState([]);
 
   const handleClick = () => {
@@ -42,6 +43,7 @@ export default function App() {
           />
           <Route path="/task" element={<Task />} />
           <Route path="/person" element={<Person />} />
+          <Route path="/image-label" element={<ImageLabeler />} />
         </Routes>
         <div className="bottom-navigation flex flex-row justify-between items-center w-80 px-4 py-2 fixed bottom-0 ">
           <Link to="/task">
